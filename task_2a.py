@@ -32,9 +32,7 @@
 ####################### IMPORT MODULES #######################
 ## You are not allowed to make any changes in this section. ##
 ##############################################################
-from itertools import count
 import  sys
-from tkinter.messagebox import YES
 import traceback
 import time
 import os
@@ -152,7 +150,9 @@ def control_logic(sim):
 
 	while(True):
 
-		if(count==9):
+		if(count==10):
+			sim.setJointTargetVelocity(la,0)
+			sim.setJointTargetVelocity(ra,0)
 			break
 		sim.setJointTargetVelocity(la,2)
 		sim.setJointTargetVelocity(ra,2)
@@ -163,7 +163,6 @@ def control_logic(sim):
 
 		if(f1==1 and f2==1 and d1<0.225):
 			count=count+1
-			print(count)
 			# sim.setJointTargetVelocity(la,0)
 			sim.setJointTargetVelocity(ra,0)
 			start_time=sim.getSimulationTime()
@@ -172,7 +171,6 @@ def control_logic(sim):
 
 		elif(f1==1 and f2==0 and d1<0.225):
 			count=count+1
-			print(count)
 			sim.setJointTargetVelocity(la,0)
 			sim.setJointTargetVelocity(ra,0)
 			start_time=sim.getSimulationTime()
@@ -181,14 +179,14 @@ def control_logic(sim):
 
 
 		if(d2>0.23 and f1==0 and f2 ==1):
-			sim.setJointTargetVelocity(la,0)
-			sim.setJointTargetVelocity(ra,0)
+			# sim.setJointTargetVelocity(la,0)
+			# sim.setJointTargetVelocity(ra,0)
 			tilt_right(sim,la,ra,d2)
 			sim.setJointTargetVelocity(la,2)
 			sim.setJointTargetVelocity(ra,2)
 		if(d2<0.12 and f1==0 and f2==1):
-			sim.setJointTargetVelocity(la,0)
-			sim.setJointTargetVelocity(ra,0)
+			# sim.setJointTargetVelocity(la,0)
+			# sim.setJointTargetVelocity(ra,0)
 			tilt_left(sim,la,ra,d2)
 			sim.setJointTargetVelocity(la,2)
 			sim.setJointTargetVelocity(ra,2)
@@ -220,9 +218,9 @@ def detect_distance_sensor_1(sim):
 	distance = None
 	##############  ADD YOUR CODE HERE  ##############
 	sensor=sim.getObjectHandle("/distance_sensor_1")	
-	f1,distance,_,_,_=sim.readProximitySensor(sensor)
+	_,distance,_,_,_=sim.readProximitySensor(sensor)
 	##################################################
-	return distance,f1
+	return distance
 
 
 
@@ -250,9 +248,9 @@ def detect_distance_sensor_2(sim):
 	distance = None
 	##############  ADD YOUR CODE HERE  ##############
 	sensor=sim.getObjectHandle("/distance_sensor_2")	
-	f2,distance,_,_,_=sim.readProximitySensor(sensor)	
+	_,distance,_,_,_=sim.readProximitySensor(sensor)	
 	##################################################
-	return distance,f2
+	return distance
 
 ######### YOU ARE NOT ALLOWED TO MAKE CHANGES TO THE MAIN CODE BELOW #########
 
